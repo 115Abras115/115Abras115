@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ábel Kurnász - Video Editor & Motion Designer</title>
     
-    <!-- VÁLTOZTATÁS: Favicon (böngésző fül ikon) hozzáadva -->
+    <!-- Favicon (böngésző fül ikon) -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/W2XyZ3c/favicon-play-button.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -445,4 +445,34 @@
                         
                         const step = timestamp => {
                             if (!start) start = timestamp;
-                            const progress = Math.min((timestamp - start) / duratio
+                            const progress = Math.min((timestamp - start) / duration, 1);
+                            const currentValue = Math.round(startValue + progress * (target - startValue));
+                            
+                            counter.innerText = currentValue + suffix;
+
+                            if (progress < 1) {
+                                window.requestAnimationFrame(step);
+                            } else {
+                                const finalText = counter.getAttribute('data-final-text');
+                                if (finalText) {
+                                    counter.innerText = finalText;
+                                } else {
+                                    counter.innerText = target + suffix;
+                                }
+                            }
+                        };
+                        window.requestAnimationFrame(step);
+                    });
+                    counterObserver.unobserve(statsSection);
+                }
+            }, { threshold: 0.5 });
+            if (statsSection) counterObserver.observe(statsSection);
+
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+        });
+    </script>
+</body>
+</html>
