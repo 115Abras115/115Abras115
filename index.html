@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ábel Kurnász - Video Editor & Motion Designer</title>
+    
+    <!-- VÁLTOZTATÁS: Favicon (böngésző fül ikon) hozzáadva -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/W2XyZ3c/favicon-play-button.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -331,7 +335,6 @@
             <div class="portfolio-main-feature fade-in">
                 <h3 class="portfolio-feature-title">Featured Motion Graphics</h3>
                 <div class="video-container">
-                    <!-- MÓDOSÍTVA: Az új kiemelt videó került ide -->
                     <iframe src="https://www.youtube.com/embed/4zgvscLomjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </div>
@@ -374,7 +377,6 @@
                         <iframe src="https://www.youtube.com/embed/Saf0KKY8R2I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
-                <!-- MÓDOSÍTVA: Ide került a korábbi kiemelt videó -->
                 <div class="portfolio-item fade-in" style="--i: 5;">
                      <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/sg5MFvHu3HE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -443,34 +445,4 @@
                         
                         const step = timestamp => {
                             if (!start) start = timestamp;
-                            const progress = Math.min((timestamp - start) / duration, 1);
-                            const currentValue = Math.round(startValue + progress * (target - startValue));
-                            
-                            counter.innerText = currentValue + suffix;
-
-                            if (progress < 1) {
-                                window.requestAnimationFrame(step);
-                            } else {
-                                const finalText = counter.getAttribute('data-final-text');
-                                if (finalText) {
-                                    counter.innerText = finalText;
-                                } else {
-                                    counter.innerText = target + suffix;
-                                }
-                            }
-                        };
-                        window.requestAnimationFrame(step);
-                    });
-                    counterObserver.unobserve(statsSection);
-                }
-            }, { threshold: 0.5 });
-            if (statsSection) counterObserver.observe(statsSection);
-
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-            });
-        });
-    </script>
-</body>
-</html>
+                            const progress = Math.min((timestamp - start) / duratio
