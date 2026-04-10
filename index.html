@@ -36,22 +36,29 @@
             overflow-x: hidden;
         }
 
-        /* LAGGMENTES KURZOR */
-        .cursor-dot {
-            width: 12px; height: 12px;
-            background-color: var(--accent-pink);
-            border-radius: 50%;
-            position: fixed;
-            top: 0; left: 0;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.15s, height 0.15s, background-color 0.15s;
+        /* KURZOR (Csak asztali gépen fog látszani) */
+        @media (pointer: fine) {
+            .cursor-dot {
+                width: 12px; height: 12px;
+                background-color: var(--accent-pink);
+                border-radius: 50%;
+                position: fixed;
+                top: 0; left: 0;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.15s, height 0.15s, background-color 0.15s;
+            }
+            a:hover ~ .cursor-dot, .btn:hover ~ .cursor-dot, iframe:hover ~ .cursor-dot { 
+                background-color: var(--accent-teal); 
+                width: 24px; height: 24px; 
+                mix-blend-mode: multiply;
+            }
         }
-        a:hover ~ .cursor-dot, .btn:hover ~ .cursor-dot, iframe:hover ~ .cursor-dot { 
-            background-color: var(--accent-teal); 
-            width: 24px; height: 24px; 
-            mix-blend-mode: multiply;
+        @media (pointer: coarse) {
+            /* Mobilon visszaállítjuk az alap kurzort és elrejtjük a piros pöttyöt */
+            * { cursor: auto; }
+            .cursor-dot { display: none !important; }
         }
 
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
@@ -98,6 +105,7 @@
             position: relative;
             display: inline-block;
             z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .section-title-wrapper { text-align: center; margin-bottom: 1rem; }
         
@@ -106,7 +114,7 @@
             width: 104%; height: 30%;
             background-color: var(--accent-yellow);
             z-index: -1; transform: skewX(-15deg);
-            transition: height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s;
         }
         .section-title:hover::after { height: 70%; background-color: var(--accent-teal); }
 
@@ -149,7 +157,7 @@
         .btn {
             display: inline-block; padding: 1rem 3rem;
             text-transform: uppercase; font-weight: 900; font-size: 1.1rem;
-            text-decoration: none; transition: all 0.2s ease;
+            text-decoration: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 3px solid var(--border-color); border-radius: 8px;
         }
         .btn-primary {
@@ -187,7 +195,7 @@
             background: var(--bg-card); padding: 2rem;
             border: 3px solid var(--border-color); border-radius: 12px;
             box-shadow: 8px 8px 0px var(--accent-yellow);
-            text-align: center; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .stat-item:hover {
             transform: translateY(-10px) rotate(-2deg);
@@ -207,6 +215,7 @@
             display: inline-block; padding: 5px 20px; 
             background: var(--bg-card); border: 3px solid var(--border-color); border-radius: 8px;
             box-shadow: 4px 4px 0px var(--accent-teal);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .portfolio-feature-description { max-width: 700px; margin: 1.5rem auto 0 auto; color: var(--text-light); font-weight: 600;}
 
@@ -214,7 +223,7 @@
             width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
             border: 3px solid var(--border-color); border-radius: 16px;
             box-shadow: 10px 10px 0px var(--text-dark);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background-color: var(--text-dark);
         }
         .video-container iframe { width: 100%; height: 100%; border: 0; }
@@ -231,7 +240,7 @@
 
         .social-links { display: flex; justify-content: center; align-items: center; gap: 3rem; margin-top: 3rem; }
         .social-links a { 
-            color: var(--text-dark); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            color: var(--text-dark); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             display: flex; align-items: center; justify-content: center;
             width: 70px; height: 70px; border-radius: 50%; 
             background: var(--bg-card); border: 3px solid var(--border-color);
@@ -257,7 +266,17 @@
         
         footer { text-align: center; padding: 3rem 0; background-color: #EBECEF; margin-top: 4rem; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; color: var(--text-light); }
 
-        /* JAVÍTOTT FADE-IN ANIMÁCIÓ (Most már biztosan lefut az About Me-n is) */
+        /* A GÖRGETÉS FIZIKAI EREJE (Scroll Force) EZEKEN AZ ELEMEKEN ÉRVÉNYESÜL */
+        body.is-scrolling .video-container,
+        body.is-scrolling .stat-item,
+        body.is-scrolling .btn,
+        body.is-scrolling .social-links a,
+        body.is-scrolling .portfolio-feature-title {
+            transform: scale(0.97) translateY(4px) !important;
+            box-shadow: 3px 3px 0px var(--border-color) !important;
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out !important;
+        }
+
         .fade-in {
             opacity: 0; transform: translateY(40px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -267,7 +286,7 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .interactive-name-container { font-size: 3rem; }
+            .interactive-name-container { font-size: 3.5rem; }
             .section-title { font-size: 2.2rem; }
             .about-content { flex-direction: column; text-align: center; }
             .stats-grid { grid-template-columns: 1fr; }
@@ -275,8 +294,6 @@
             .portfolio-feature-title { font-size: 1.5rem; }
             section { padding: 4rem 0; }
             .section-divider { margin: 4rem auto; }
-            * { cursor: auto; }
-            .cursor-dot { display: none; }
         }
     </style>
 </head>
@@ -302,6 +319,7 @@
     <main>
         <section id="hero">
             <div class="container fade-in">
+                <!-- A név JS által lesz generálva ide -->
                 <div class="interactive-name-container" id="myName"></div>
                 <h2>Video Editor & Motion Designer</h2>
                 <p class="section-subtitle" style="margin-bottom: 2.5rem;">Transforming creative ideas into breathtaking visual stories.</p>
@@ -318,7 +336,7 @@
             </div>
         </section>
 
-        <!-- ABOUT ME SZEKCIÓ (Javítva az animációhoz) -->
+        <!-- ABOUT ME SZEKCIÓ -->
         <section id="about" class="container fade-in">
             <div class="about-content">
                 <div class="about-text">
@@ -480,32 +498,83 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         const cursorDot = document.getElementById("cursor-dot");
-        window.addEventListener("mousemove", function(e) {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-        });
+        if(cursorDot) {
+            window.addEventListener("mousemove", function(e) {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+            });
+        }
 
+        // Z-BETŰ TÖRÉSÉNEK JAVÍTÁSA ÉS SZIVÁRVÁNY EFEKTUS
         const nameContainer = document.getElementById('myName');
         const nameText = "Ábel Kurnász";
-        nameText.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.innerText = char;
-            if(char === ' ') span.innerHTML = '&nbsp;';
+        const words = nameText.split(' '); // Szavakra bontás
+        
+        words.forEach((word, index) => {
+            const wordDiv = document.createElement('div');
+            wordDiv.style.display = 'inline-block';
+            wordDiv.style.whiteSpace = 'nowrap'; // Megakadályozza, hogy a szó eltörjön a közepén
             
-            span.addEventListener('mouseenter', () => {
-                span.classList.add('rainbow-active');
+            word.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.innerText = char;
+                span.classList.add('letter-span');
+                
+                // Hover (egér) logika
+                span.addEventListener('mouseenter', () => span.classList.add('rainbow-active'));
+                span.addEventListener('mouseleave', () => {
+                    setTimeout(() => span.classList.remove('rainbow-active'), 2000);
+                });
+                
+                wordDiv.appendChild(span);
             });
             
-            span.addEventListener('mouseleave', () => {
-                setTimeout(() => {
-                    span.classList.remove('rainbow-active');
-                }, 2000);
-            });
-
-            nameContainer.appendChild(span);
+            nameContainer.appendChild(wordDiv);
+            
+            // Szóköz hozzáadása a szavak közé
+            if(index < words.length - 1) {
+                const space = document.createElement('span');
+                space.innerHTML = '&nbsp;';
+                nameContainer.appendChild(space);
+            }
         });
 
-        // JAVÍTOTT: Villogó, megnövő konfetti hover effekttel
+        // GÖRGETÉSI SEBESSÉG (Scroll Force) LOGIKA ÉS SZIVÁRVÁNY
+        let lastScrollY = window.scrollY;
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', () => {
+            let currentScrollY = window.scrollY;
+            let delta = Math.abs(currentScrollY - lastScrollY);
+            lastScrollY = currentScrollY;
+            
+            // 1. Fizikai "Benyomódás" effekt az egész oldalra
+            document.body.classList.add('is-scrolling');
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('is-scrolling');
+            }, 150); // 150ms görgetés nélkül és visszapattan
+            
+            // 2. Sebesség-érzékeny szivárvány a néven
+            if (delta > 5) { 
+                let spans = document.querySelectorAll('.letter-span');
+                // Minél gyorsabb a görgetés (delta), annál több betű kapja meg a hatást
+                let numLetters = Math.min(Math.floor(delta / 5) + 1, spans.length); 
+                
+                for(let i=0; i<numLetters; i++) {
+                    let randomIdx = Math.floor(Math.random() * spans.length);
+                    let span = spans[randomIdx];
+                    span.classList.add('rainbow-active');
+                    
+                    // Késleltetett eltávolítás
+                    setTimeout(() => {
+                        span.classList.remove('rainbow-active');
+                    }, 2000);
+                }
+            }
+        });
+
+        // Villogó, megnövő konfetti hover effekttel
         particlesJS("particles-js", {
             "particles": { 
                 "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, 
@@ -518,7 +587,6 @@
             },
             "interactivity": { 
                 "detect_on": "window", 
-                // A 'bubble' mód felelős azért, hogy ha ráviszed az egeret, megnőjön és felvillanjon (opacity 1)
                 "events": { "onhover": { "enable": true, "mode": ["repulse", "bubble"] }, "onclick": { "enable": false }, "resize": true }, 
                 "modes": { 
                     "repulse": { "distance": 100, "duration": 0.4 },
@@ -531,7 +599,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo(0, 0);
 
-            // Ez felelős a fade-in animációkért
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
