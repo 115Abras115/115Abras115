@@ -9,20 +9,19 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Vastag, modern, sportos betűtípus -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;0,900;1,900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             /* VILÁGOS, PASZTELL FITNESS PALETTA */
-            --bg-main: #F7F8FA; /* Nagyon világos szürke/törtfehér háttér */
-            --bg-card: #FFFFFF; /* Fehér kártyák */
-            --accent-pink: #FF5E5B; /* Energikus Korall/Rózsaszín */
-            --accent-teal: #00CECB; /* Friss Menta/Türkiz */
-            --accent-yellow: #FFED66; /* Napsárga */
-            --text-dark: #22223B; /* Nagyon sötét kék/szürke szöveg */
-            --text-light: #4A4E69; /* Kicsit világosabb szöveg bekezdésekhez */
-            --border-color: #22223B; /* Vastag keretek színe */
+            --bg-main: #F7F8FA;
+            --bg-card: #FFFFFF;
+            --accent-pink: #FF5E5B;
+            --accent-teal: #00CECB;
+            --accent-yellow: #FFED66;
+            --text-dark: #22223B;
+            --text-light: #4A4E69;
+            --border-color: #22223B;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -37,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* EGYSZERŰSÍTETT, LAGGMENTES KURZOR */
+        /* LAGGMENTES KURZOR */
         .cursor-dot {
             width: 12px; height: 12px;
             background-color: var(--accent-pink);
@@ -55,7 +54,6 @@
             mix-blend-mode: multiply;
         }
 
-        /* Konfetti háttér */
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
@@ -92,7 +90,6 @@
 
         section { padding: 6rem 0; position: relative; }
 
-        /* JAVÍTOTT, SZÖVEGKIEMELŐS SZEKCIÓ CÍMEK */
         .section-title {
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 900; text-transform: uppercase; font-style: italic;
@@ -102,7 +99,7 @@
             display: inline-block;
             z-index: 1;
         }
-        .section-title-wrapper { text-align: center; margin-bottom: 1rem; } /* Középre rendezéshez */
+        .section-title-wrapper { text-align: center; margin-bottom: 1rem; }
         
         .section-title::after {
             content: ''; position: absolute; bottom: 8px; left: -2%;
@@ -117,7 +114,6 @@
 
         #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         
-        /* 2 MÁSODPERCIG MARADÓ SZIVÁRVÁNY NÉV */
         .interactive-name-container {
             font-size: clamp(3rem, 8vw, 7rem);
             font-weight: 900; text-transform: uppercase; font-style: italic;
@@ -129,7 +125,6 @@
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
             color: var(--text-dark);
         }
-        /* Ezt a classt a JavaScript adja hozzá és veszi le 2mp után */
         .interactive-name-container span.rainbow-active {
             transform: scale(1.3) translateY(-15px) rotate(5deg);
             z-index: 10;
@@ -151,7 +146,6 @@
 
         .cta-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 
-        /* MÓKÁS NEOBRUTALISM GOMBOK */
         .btn {
             display: inline-block; padding: 1rem 3rem;
             text-transform: uppercase; font-weight: 900; font-size: 1.1rem;
@@ -189,7 +183,6 @@
         .about-text p { font-size: 1.1rem; font-weight: 500; }
         
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
-        /* POP-UP STATISZTIKA DOBOZOK */
         .stat-item {
             background: var(--bg-card); padding: 2rem;
             border: 3px solid var(--border-color); border-radius: 12px;
@@ -203,7 +196,6 @@
         .stat-number { font-size: 3.5rem; font-weight: 900; font-style: italic; color: var(--text-dark); line-height: 1; margin-bottom: 0.5rem; }
         .stat-item p { text-transform: uppercase; font-weight: 800; color: var(--text-light); font-size: 0.9rem; }
 
-        /* JAVÍTOTT KÖZÉPRE ZÁRÁS A FEATURED DOBOZOKNÁL */
         .portfolio-main-feature, .portfolio-feature-item { 
             max-width: 900px; margin: 0 auto 6rem auto; 
             display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -218,7 +210,6 @@
         }
         .portfolio-feature-description { max-width: 700px; margin: 1.5rem auto 0 auto; color: var(--text-light); font-weight: 600;}
 
-        /* JÁTÉKOS VIDEÓ DOBOZOK */
         .video-container {
             width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
             border: 3px solid var(--border-color); border-radius: 16px;
@@ -231,7 +222,6 @@
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; }
         .portfolio-item { display: flex; flex-direction: column; }
         
-        /* HOVER EFFECT: MEGDŐLÉS ÉS SZÍNVÁLTÓ ÁRNYÉK */
         .video-container:hover {
             transform: translate(-5px, -5px) rotate(1.5deg);
             box-shadow: 15px 15px 0px var(--accent-pink);
@@ -260,7 +250,6 @@
             display: block; margin-top: 0.5rem; text-decoration: underline; text-decoration-color: var(--accent-pink); text-decoration-thickness: 4px;
         }
         
-        /* ÚJ, SZÍNES ELVÁLASZTÓ VONAL */
         .section-divider {
             width: 100px; height: 8px; border: none; margin: 6rem auto; border-radius: 4px;
             background: linear-gradient(90deg, var(--accent-pink), var(--accent-yellow), var(--accent-teal));
@@ -268,9 +257,10 @@
         
         footer { text-align: center; padding: 3rem 0; background-color: #EBECEF; margin-top: 4rem; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; color: var(--text-light); }
 
+        /* JAVÍTOTT FADE-IN ANIMÁCIÓ (Most már biztosan lefut az About Me-n is) */
         .fade-in {
             opacity: 0; transform: translateY(40px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .portfolio-grid .portfolio-item, .stats-grid .stat-item { transition-delay: calc(0.1s * var(--i)); }
@@ -292,7 +282,6 @@
 </head>
 <body>
 
-    <!-- Custom Cursor (Csak egy pont) -->
     <div class="cursor-dot" id="cursor-dot"></div>
 
     <div id="particles-js"></div>
@@ -313,7 +302,6 @@
     <main>
         <section id="hero">
             <div class="container fade-in">
-                <!-- A név JS által lesz generálva ide -->
                 <div class="interactive-name-container" id="myName"></div>
                 <h2>Video Editor & Motion Designer</h2>
                 <p class="section-subtitle" style="margin-bottom: 2.5rem;">Transforming creative ideas into breathtaking visual stories.</p>
@@ -330,8 +318,9 @@
             </div>
         </section>
 
-        <section id="about" class="container">
-            <div class="about-content fade-in">
+        <!-- ABOUT ME SZEKCIÓ (Javítva az animációhoz) -->
+        <section id="about" class="container fade-in">
+            <div class="about-content">
                 <div class="about-text">
                     <div class="section-title-wrapper" style="text-align: left;">
                         <h2 class="section-title">About Me</h2>
@@ -358,7 +347,7 @@
         <hr class="section-divider">
 
         <section id="portfolio" class="container">
-            <div class="section-title-wrapper">
+            <div class="section-title-wrapper fade-in">
                 <h2 class="section-title">Portfolio</h2>
             </div>
             <p class="section-subtitle fade-in" style="margin-bottom: 5rem;">A showcase of my previous work. Each video tells a unique story.</p>
@@ -416,7 +405,7 @@
                 </div>
             </div>
             
-            <div class="section-title-wrapper" style="margin-top: 8rem; margin-bottom: 3rem;">
+            <div class="section-title-wrapper fade-in" style="margin-top: 8rem; margin-bottom: 3rem;">
                 <h3 class="section-title" style="font-size: 2.2rem;">Other Motion Graphics</h3>
             </div>
             <div class="portfolio-grid fade-in">
@@ -461,14 +450,15 @@
         <hr class="section-divider">
 
         <section id="contact" class="container">
-            <div class="section-title-wrapper">
+            <div class="section-title-wrapper fade-in">
                 <h2 class="section-title">Let's Get In Touch!</h2>
             </div>
             <p class="section-subtitle fade-in">Have a project in mind? Let's work together. You can reach out to me on my socials.</p>
             
             <div class="social-links fade-in">
-                <a href="https://www.instagram.com/editorforhire__/" target="_blank" title="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <!-- ÚJ INSTAGRAM LINK ÉS HELYES IKON (A RENDES LOGÓ) -->
+                <a href="https://www.instagram.com/abelframes_/" target="_blank" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 </a>
                 <a href="https://x.com/EditorForHire__" target="_blank" title="X (Twitter)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zm-1.61 19.99h2.546L6.354 2.165H3.682l13.609 19.978z"></path></svg>
@@ -489,14 +479,12 @@
     
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Kurzor JS
         const cursorDot = document.getElementById("cursor-dot");
         window.addEventListener("mousemove", function(e) {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
         });
 
-        // 2 MÁSODPERCES SZIVÁRVÁNY KÉSLELTETÉS JAVASCRIPT
         const nameContainer = document.getElementById('myName');
         const nameText = "Ábel Kurnász";
         nameText.split('').forEach(char => {
@@ -504,12 +492,10 @@
             span.innerText = char;
             if(char === ' ') span.innerHTML = '&nbsp;';
             
-            // Amikor ráviszed az egeret: azonnal megkapja az effektet
             span.addEventListener('mouseenter', () => {
                 span.classList.add('rainbow-active');
             });
             
-            // Amikor elviszed az egeret: 2000ms (2mp) múlva veszi le az effektet
             span.addEventListener('mouseleave', () => {
                 setTimeout(() => {
                     span.classList.remove('rainbow-active');
@@ -519,21 +505,25 @@
             nameContainer.appendChild(span);
         });
 
-        // Világos, színes hulló konfetti háttér
+        // JAVÍTOTT: Villogó, megnövő konfetti hover effekttel
         particlesJS("particles-js", {
             "particles": { 
                 "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, 
                 "color": { "value": ["#FF5E5B", "#00CECB", "#FFED66"] }, 
                 "shape": { "type": "circle" }, 
-                "opacity": { "value": 0.6, "random": true, "anim": { "enable": false } }, 
+                "opacity": { "value": 0.5, "random": true, "anim": { "enable": false } }, 
                 "size": { "value": 5, "random": true, "anim": { "enable": false } }, 
                 "line_linked": { "enable": false }, 
                 "move": { "enable": true, "speed": 2, "direction": "bottom", "random": true, "straight": false, "out_mode": "out", "bounce": false } 
             },
             "interactivity": { 
                 "detect_on": "window", 
-                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": false }, "resize": true }, 
-                "modes": { "repulse": { "distance": 80, "duration": 0.4 } } 
+                // A 'bubble' mód felelős azért, hogy ha ráviszed az egeret, megnőjön és felvillanjon (opacity 1)
+                "events": { "onhover": { "enable": true, "mode": ["repulse", "bubble"] }, "onclick": { "enable": false }, "resize": true }, 
+                "modes": { 
+                    "repulse": { "distance": 100, "duration": 0.4 },
+                    "bubble": { "distance": 150, "size": 12, "duration": 0.3, "opacity": 1 }
+                } 
             }, 
             "retina_detect": true
         });
@@ -541,6 +531,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo(0, 0);
 
+            // Ez felelős a fade-in animációkért
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
