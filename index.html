@@ -9,19 +9,22 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Kicsit vastagabb, sportosabb betűtípus beállítás -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;0,900;1,800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-dark: #0B0A10;
-            --bg-secondary: #1A1A2E;
-            --accent-primary: #9370DB;
-            --accent-secondary: #4682B4;
-            --text-primary: #EAEAEA;
-            --text-headings: #FFFFFF;
-            --gradient-text: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            /* High Energy Fitness Palette */
+            --bg-dark: #0a0a0c;
+            --bg-secondary: #141418;
+            --accent-primary: #ccff00; /* Neon Lime Green */
+            --accent-secondary: #ff007f; /* Electric Pink */
+            --text-primary: #e0e0e0;
+            --text-headings: #ffffff;
+            --gradient-text: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Eltüntetjük az alap kurzort a custom miatt */ }
 
         html { scroll-behavior: smooth; }
 
@@ -33,251 +36,277 @@
             overflow-x: hidden;
         }
 
-        #particles-js {
+        /* EGYEDI KURZOR STÍLUS */
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background-color: var(--accent-primary);
+            border-radius: 50%;
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--accent-primary), 0 0 20px var(--accent-primary);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: top 0.1s ease-out, left 0.1s ease-out, width 0.2s, height 0.2s;
+        }
+
+        /* Hover hatások a kurzorra */
+        a:hover ~ .cursor-dot, .btn:hover ~ .cursor-dot { background-color: var(--accent-secondary); box-shadow: 0 0 15px var(--accent-secondary); }
+        a:hover ~ .cursor-outline, .btn:hover ~ .cursor-outline { width: 60px; height: 60px; border-color: var(--accent-primary); }
+
+        #particles-js {
+            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; opacity: 0.6;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            z-index: 1000;
-            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+            position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 0; z-index: 1000;
+            transition: background-color 0.4s ease, padding 0.4s ease;
         }
-
         header.scrolled {
-            background-color: rgba(11, 10, 16, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            background-color: rgba(10, 10, 12, 0.95);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(204, 255, 0, 0.2);
         }
 
         nav { display: flex; justify-content: space-between; align-items: center; }
 
-        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-headings); text-decoration: none; }
+        .logo { font-size: 2rem; font-weight: 900; color: var(--text-headings); font-style: italic; text-transform: uppercase; letter-spacing: 2px; }
+        .logo span { color: var(--accent-primary); }
 
         .nav-links { display: flex; list-style: none; gap: 2.5rem; }
-
         .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            position: relative;
-            padding-bottom: 5px;
+            color: var(--text-primary); text-transform: uppercase; font-weight: 800; font-size: 0.9rem; letter-spacing: 1px;
+            position: relative; padding-bottom: 5px;
         }
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-text);
-            transition: width 0.3s ease-in-out;
+            content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 0;
+            background: var(--accent-primary); transition: width 0.3s ease;
         }
-        .nav-links a:hover { color: var(--accent-primary); }
+        .nav-links a:hover { color: var(--text-headings); }
         .nav-links a:hover::after { width: 100%; }
 
-        section { padding: 4rem 0; position: relative; }
+        section { padding: 6rem 0; position: relative; }
 
         .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            text-align: center;
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900; text-transform: uppercase; font-style: italic;
+            margin-bottom: 1rem; text-align: center;
             color: transparent;
+            -webkit-text-stroke: 1px var(--text-headings);
+            position: relative;
         }
+        .section-title::before {
+            content: attr(data-text); position: absolute; left: 50%; transform: translateX(-50%);
+            color: var(--accent-primary); -webkit-text-stroke: 0;
+            clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+            transition: clip-path 0.3s ease;
+        }
+        .section-title:hover::before { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 
-        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 4rem auto; color: #b0b0b0; }
+        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 4rem auto; color: #a0a0a0; font-size: 1.1rem; }
 
         #hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 80px;
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
-        #hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 2.5rem;
-            max-width: 900px;
+        
+        /* A TRÜKKÖS NÉV HOVER EFFECT */
+        .interactive-name-container {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .interactive-name-container span {
+            display: inline-block;
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s, text-shadow 0.2s;
+            color: var(--text-headings);
+        }
+        .interactive-name-container span:hover {
+            transform: scale(1.4) translateY(-20px) rotate(5deg);
+            z-index: 10;
+            animation: rainbow 1s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { color: #ff0000; text-shadow: 0 0 20px #ff0000; }
+            20% { color: #ff7f00; text-shadow: 0 0 20px #ff7f00; }
+            40% { color: #ffff00; text-shadow: 0 0 20px #ffff00; }
+            60% { color: #00ff00; text-shadow: 0 0 20px #00ff00; }
+            80% { color: #0000ff; text-shadow: 0 0 20px #0000ff; }
+            100% { color: #ff0000; text-shadow: 0 0 20px #ff0000; }
+        }
+
+        #hero h2 {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 600; color: var(--accent-primary);
+            margin-bottom: 2.5rem; letter-spacing: 2px;
         }
 
         .cta-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 
         .btn {
-            display: inline-block;
-            padding: 0.8rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            display: inline-block; padding: 1rem 3rem;
+            text-transform: uppercase; font-weight: 900; letter-spacing: 1px;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+            z-index: 1;
         }
         .btn-primary {
-            background-image: linear-gradient(45deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
-            color: var(--text-headings);
-            background-size: 200% auto;
+            background-color: var(--accent-primary);
+            color: var(--bg-dark);
+            box-shadow: 6px 6px 0 var(--accent-secondary);
         }
         .btn-primary:hover {
-            background-position: right center;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(147, 112, 219, 0.3);
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--accent-secondary);
+            background-color: #ffffff;
         }
         .btn-secondary {
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
+            background-color: transparent;
+            color: var(--text-headings);
+            border: 2px solid var(--accent-secondary);
+            box-shadow: 6px 6px 0 var(--accent-primary);
         }
         .btn-secondary:hover {
-            background-color: var(--accent-primary);
-            color: var(--text-headings);
-            transform: translateY(-5px);
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--accent-primary);
+            background-color: var(--accent-secondary);
+            color: #fff;
         }
-        
+
         .scroll-down {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            animation: fastBounce 1s infinite alternate;
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-            40% { transform: translate(-50%, -20px); }
-            60% { transform: translate(-50%, -10px); }
+        @keyframes fastBounce {
+            0% { transform: translate(-50%, 0); }
+            100% { transform: translate(-50%, 20px); }
         }
 
         .about-content { display: flex; align-items: center; gap: 4rem; }
         .about-text { flex-grow: 1; }
         
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
         .stat-item {
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            border-bottom: 3px solid var(--accent-primary);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--bg-secondary); padding: 2rem;
+            border-left: 4px solid var(--accent-primary);
+            position: relative; overflow: hidden;
+            transition: transform 0.3s ease;
         }
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent-primary); }
+        .stat-item:hover { transform: translateY(-10px) skewX(-2deg); background: #1a1a24; }
+        .stat-number { font-size: 3.5rem; font-weight: 900; font-style: italic; color: var(--accent-secondary); line-height: 1; margin-bottom: 0.5rem; }
 
+        /* FITNESS STYLE VIDEÓ DOBOZOK */
         .video-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            border: 2px solid #2a2a4a;
+            width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+            border: 2px solid #333;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
-        .video-container iframe { width: 100%; height: 100%; border: 0; }
+        .video-container iframe { width: 100%; height: 100%; border: 0; filter: grayscale(20%); transition: filter 0.4s; }
         
         .portfolio-main-feature { max-width: 900px; margin: 0 auto 6rem auto; }
         .portfolio-feature-item { max-width: 900px; margin: 0 auto 5rem auto; text-align: center; }
+        
         .portfolio-feature-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-headings);
-            text-align: center;
+            font-size: 2rem; font-weight: 900; text-transform: uppercase; font-style: italic;
+            margin-bottom: 1rem; color: var(--text-headings); text-align: center;
+            display: inline-block; padding: 5px 15px; background: var(--accent-secondary); color: white; transform: skewX(-10deg);
         }
-        .portfolio-feature-description { max-width: 700px; margin: 1.5rem auto 0 auto; color: var(--text-primary); }
+        .portfolio-feature-description { max-width: 700px; margin: 1.5rem auto 0 auto; color: var(--text-primary); font-weight: 600;}
 
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-        .portfolio-item {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #2a2a4a;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; }
+        .portfolio-item { display: flex; flex-direction: column; }
+        
+        /* HOVER EFFECT A VIDEÓKRA */
+        .portfolio-item .video-container:hover, .portfolio-main-feature .video-container:hover, .portfolio-feature-item .video-container:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: -15px 15px 0px var(--accent-primary);
+            border-color: var(--accent-primary);
+            z-index: 10;
         }
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(147, 112, 219, 0.4);
-        }
+        .video-container:hover iframe { filter: grayscale(0%); }
 
         #contact { text-align: center; }
 
-        .social-links { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 2.5rem; }
-        .social-links a { color: var(--text-primary); transition: color 0.3s ease, transform 0.3s ease; }
-        .social-links a:hover { color: var(--accent-primary); transform: scale(1.1); }
-        .social-links svg { width: 32px; height: 32px; fill: currentColor; }
+        .social-links { display: flex; justify-content: center; align-items: center; gap: 3rem; margin-top: 3rem; }
+        .social-links a { 
+            color: var(--text-primary); transition: all 0.3s ease; 
+            display: flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px; border-radius: 50%; background: var(--bg-secondary);
+        }
+        .social-links a:hover { 
+            color: var(--bg-dark); background: var(--accent-primary); 
+            transform: translateY(-10px) scale(1.1); box-shadow: 0 10px 20px rgba(204, 255, 0, 0.4);
+        }
+        .social-links svg { width: 30px; height: 30px; fill: currentColor; }
 
-        .email-contact-text {
-            margin-top: 2.5rem;
-            color: #c0c0c0;
-            font-size: 1.1rem;
-        }
-        .email-contact-text strong {
-            color: var(--text-headings);
-            font-weight: 600;
-        }
+        .email-contact-text { margin-top: 3rem; color: #a0a0a0; font-size: 1.2rem; font-weight: 600;}
+        .email-contact-text strong { color: var(--accent-secondary); font-weight: 900; font-size: 1.4rem; letter-spacing: 1px; display: block; margin-top: 0.5rem;}
         
+        /* TRENDI ELVÁLASZTÓ VONAL */
         .section-divider {
-            width: 150px;
-            height: 2px;
-            background-color: #2a2a4a;
-            border: 0;
-            margin: 6rem auto;
+            width: 100%; height: 4px; border: none; margin: 6rem 0;
+            background: repeating-linear-gradient(90deg, var(--accent-primary) 0, var(--accent-primary) 20px, transparent 20px, transparent 40px);
+            opacity: 0.3;
         }
         
-        footer { text-align: center; padding: 2rem 0; background-color: #08070c; border-top: 1px solid #2a2a4a; margin-top: 4rem; }
+        footer { text-align: center; padding: 2rem 0; background-color: #050505; margin-top: 4rem; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
 
         .fade-in {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            opacity: 0; transform: translateY(50px);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .portfolio-grid .portfolio-item, .stats-grid .stat-item { transition-delay: calc(0.1s * var(--i)); }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            #hero h1 { font-size: 2.8rem; }
+            .interactive-name-container { font-size: 3rem; }
             .section-title { font-size: 2.2rem; }
             .about-content { flex-direction: column; text-align: center; }
             .stats-grid { grid-template-columns: 1fr; }
             .portfolio-grid { grid-template-columns: 1fr; }
-            .portfolio-feature-title { font-size: 1.8rem; }
-            section { padding: 3rem 0; }
-            .section-divider { margin: 4rem auto; }
+            .portfolio-feature-title { font-size: 1.5rem; }
+            section { padding: 4rem 0; }
+            .section-divider { margin: 4rem 0; }
+            /* Mobilon nincs kurzor csere */
+            * { cursor: auto; }
+            .cursor-dot, .cursor-outline { display: none; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
 
     <div id="particles-js"></div>
 
     <header id="header">
         <div class="container">
             <nav>
-                <a href="#" class="logo">Ábel.</a>
+                <a href="#" class="logo">Ábel<span>.</span></a>
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#portfolio">Work</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -287,17 +316,19 @@
     <main>
         <section id="hero">
             <div class="container fade-in">
-                <h1>Video Editor & Motion Designer</h1>
-                <p class="section-subtitle" style="margin-bottom: 2.5rem;">Transforming creative ideas into breathtaking visual stories.</p>
+                <!-- A NEVED GENERÁLÓDIK IDE A JAVASCRIPT ÁLTAL A HOVER EFFECTHEZ -->
+                <div class="interactive-name-container" id="myName"></div>
+                <h2>Video Editor & Motion Designer</h2>
+                <p class="section-subtitle" style="margin-bottom: 2.5rem; color: #fff;">Transforming creative ideas into breathtaking visual stories.</p>
                 <div class="cta-buttons">
                     <a href="#portfolio" class="btn btn-primary">View My Work</a>
                     <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                 </div>
             </div>
             <div class="scroll-down">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 5V19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 12L12 19L5 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="7 13 12 18 17 13"></polyline>
+                    <polyline points="7 6 12 11 17 6"></polyline>
                 </svg>
             </div>
         </section>
@@ -305,20 +336,20 @@
         <section id="about" class="container">
             <div class="about-content fade-in">
                 <div class="about-text">
-                    <h2 class="section-title" style="text-align: left;">About Me</h2>
-                    <p>Hi, I'm Ábel, an 18-year-old video editor and motion designer. I'm passionate about my craft, and my goal is to bring out the best in every project, creating visual experiences that capture the viewer's attention and effectively convey the message. Whether it's a commercial, social media content, or a complex animation, I approach each task with precision and creativity.</p>
+                    <h2 class="section-title" data-text="About Me" style="text-align: left;">About Me</h2>
+                    <p style="font-size: 1.1rem; font-weight: 500;">Hi, I'm Ábel, an 18-year-old video editor and motion designer. I'm passionate about my craft, and my goal is to bring out the best in every project, creating visual experiences that capture the viewer's attention and effectively convey the message. Whether it's a commercial, social media content, or a complex animation, I approach each task with precision and creativity.</p>
                     <div class="stats-grid">
                         <div class="stat-item fade-in" style="--i: 1;">
                             <div class="stat-number" data-target="3" data-start="0" data-suffix="+">0+</div>
-                            <p>Years of Experience</p>
+                            <p style="text-transform: uppercase; font-weight: 800;">Years Exp.</p>
                         </div>
                         <div class="stat-item fade-in" style="--i: 2;">
                             <div class="stat-number" data-target="1000" data-start="100" data-suffix="k" data-final-text="1M+">100k</div>
-                            <p>Views Generated</p>
+                            <p style="text-transform: uppercase; font-weight: 800;">Views Generated</p>
                         </div>
                         <div class="stat-item fade-in" style="--i: 3;">
                             <div class="stat-number" data-target="660" data-start="100" data-suffix="k+">100k+</div>
-                            <p>Subscriber Channel</p>
+                            <p style="text-transform: uppercase; font-weight: 800;">Sub Channel</p>
                         </div>
                     </div>
                 </div>
@@ -328,10 +359,9 @@
         <hr class="section-divider">
 
         <section id="portfolio" class="container">
-            <h2 class="section-title fade-in">Portfolio</h2>
-            <p class="section-subtitle fade-in">A showcase of my previous work. Each video tells a unique story.</p>
+            <h2 class="section-title" data-text="Portfolio">Portfolio</h2>
+            <p class="section-subtitle fade-in" style="margin-bottom: 5rem;">A showcase of my previous work. Each video tells a unique story.</p>
             
-            <!-- ÚJ SZEKCIÓ: Featured Fitness Edit -->
             <div class="portfolio-main-feature fade-in">
                 <h3 class="portfolio-feature-title">Featured Fitness Edit</h3>
                 <div class="video-container">
@@ -339,7 +369,6 @@
                 </div>
             </div>
 
-            <!-- ÁTNEVEZVE ÉS MÁSIK DOBOZBA RAKVA: Featured Tech Edit -->
             <div class="portfolio-feature-item fade-in">
                 <h3 class="portfolio-feature-title">Featured Tech Edit</h3>
                 <div class="video-container">
@@ -364,7 +393,7 @@
             </div>
 
             <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">Long Form Gaming Video | 5x View Performance</h3>
+                <h3 class="portfolio-feature-title">Long Form Gaming | 5x View Perf.</h3>
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/9sr9Hdl7pUY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
@@ -386,8 +415,8 @@
                 </div>
             </div>
             
-            <h3 class="portfolio-feature-title fade-in" style="margin-top: 6rem;">Other Motion Graphics Samples</h3>
-            <div class="portfolio-grid fade-in" style="margin-top: 2rem;">
+            <h3 class="portfolio-feature-title fade-in" style="margin-top: 6rem; transform: none; background: transparent; color: var(--accent-primary); font-size: 2.5rem;">Other Motion Graphics Samples</h3>
+            <div class="portfolio-grid fade-in" style="margin-top: 3rem;">
                 <div class="portfolio-item fade-in" style="--i: 1;">
                     <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/LIrDQIJu5K8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -429,20 +458,20 @@
         <hr class="section-divider">
 
         <section id="contact" class="container">
-            <h2 class="section-title fade-in">Let's Get In Touch!</h2>
+            <h2 class="section-title" data-text="Let's Get In Touch!">Let's Get In Touch!</h2>
             <p class="section-subtitle fade-in">Have a project in mind? Let's work together. You can reach out to me on my socials.</p>
             
             <div class="social-links fade-in">
                 <a href="https://www.instagram.com/editorforhire__/" target="_blank" title="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="fill:none;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
                 <a href="https://x.com/EditorForHire__" target="_blank" title="X (Twitter)">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zm-1.61 19.99h2.546L6.354 2.165H3.682l13.609 19.978z"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zm-1.61 19.99h2.546L6.354 2.165H3.682l13.609 19.978z"></path></svg>
                 </a>
             </div>
             
             <p class="email-contact-text fade-in">
-                Alternatively, feel free to send me an email directly at: <strong>kurnaszabel@gmail.com</strong>
+                Alternatively, drop me an email at: <strong>kurnaszabel@gmail.com</strong>
             </p>
         </section>
     </main>
@@ -455,9 +484,48 @@
     
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorOutline = document.getElementById("cursor-outline");
+        window.addEventListener("mousemove", function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            // Késleltetett mozgás a külső körnek
+            setTimeout(() => {
+                cursorOutline.style.left = `${posX}px`;
+                cursorOutline.style.top = `${posY}px`;
+            }, 50);
+        });
+
+        // Név szétszedése betűkre a hover effecthez
+        const nameContainer = document.getElementById('myName');
+        const nameText = "Ábel Kurnász";
+        nameText.split('').forEach(char => {
+            const span = document.createElement('span');
+            span.innerText = char;
+            if(char === ' ') span.innerHTML = '&nbsp;'; // szóköz megtartása
+            nameContainer.appendChild(span);
+        });
+
+        // Új, pörgősebb háttér (konfetti/szikra szerű)
         particlesJS("particles-js", {
-            "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#4682B4", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false } },
-            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } } }, "retina_detect": true
+            "particles": { 
+                "number": { "value": 80, "density": { "enable": true, "value_area": 1000 } }, 
+                "color": { "value": ["#ccff00", "#ff007f", "#ffffff"] }, 
+                "shape": { "type": "circle" }, 
+                "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 2, "opacity_min": 0.1, "sync": false } }, 
+                "size": { "value": 4, "random": true }, 
+                "line_linked": { "enable": false }, /* Nincsenek vonalak, csak dinamikus pontok */
+                "move": { "enable": true, "speed": 4, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false } 
+            },
+            "interactivity": { 
+                "detect_on": "window", 
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, 
+                "modes": { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } } 
+            }, 
+            "retina_detect": true
         });
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -488,18 +556,12 @@
                             if (!start) start = timestamp;
                             const progress = Math.min((timestamp - start) / duration, 1);
                             const currentValue = Math.round(startValue + progress * (target - startValue));
-                            
                             counter.innerText = currentValue + suffix;
-
                             if (progress < 1) {
                                 window.requestAnimationFrame(step);
                             } else {
                                 const finalText = counter.getAttribute('data-final-text');
-                                if (finalText) {
-                                    counter.innerText = finalText;
-                                } else {
-                                    counter.innerText = target + suffix;
-                                }
+                                counter.innerText = finalText ? finalText : target + suffix;
                             }
                         };
                         window.requestAnimationFrame(step);
