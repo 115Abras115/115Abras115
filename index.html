@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ábel Kurnász - Video Editor & Motion Designer</title>
+    <title>Ábel Kurnász - Video Editor & Motion Graphics Guy</title>
     
     <link rel="icon" type="image/png" href="https://i.ibb.co/W2XyZ3c/favicon-play-button.png">
 
@@ -13,11 +13,11 @@
     
     <style>
         :root {
-            /* VILÁGOS, PASZTELL FITNESS PALETTA */
+            /* MODERN FINTECH PALETTA */
             --bg-main: #F7F8FA;
             --bg-card: #FFFFFF;
-            --accent-pink: #FF5E5B;
-            --accent-teal: #00CECB;
+            --accent-pink: #FF5E5B; 
+            --accent-teal: #00CECB; 
             --accent-yellow: #FFED66;
             --text-dark: #22223B;
             --text-light: #4A4E69;
@@ -36,29 +36,22 @@
             overflow-x: hidden;
         }
 
-        /* KURZOR (Csak asztali gépen fog látszani) */
-        @media (pointer: fine) {
-            .cursor-dot {
-                width: 12px; height: 12px;
-                background-color: var(--accent-pink);
-                border-radius: 50%;
-                position: fixed;
-                top: 0; left: 0;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: width 0.15s, height 0.15s, background-color 0.15s;
-            }
-            a:hover ~ .cursor-dot, .btn:hover ~ .cursor-dot, iframe:hover ~ .cursor-dot { 
-                background-color: var(--accent-teal); 
-                width: 24px; height: 24px; 
-                mix-blend-mode: multiply;
-            }
+        /* LAGGMENTES KURZOR */
+        .cursor-dot {
+            width: 12px; height: 12px;
+            background-color: var(--accent-pink);
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s, height 0.15s, background-color 0.15s;
         }
-        @media (pointer: coarse) {
-            /* Mobilon visszaállítjuk az alap kurzort és elrejtjük a piros pöttyöt */
-            * { cursor: auto; }
-            .cursor-dot { display: none !important; }
+        a:hover ~ .cursor-dot, .btn:hover ~ .cursor-dot, iframe:hover ~ .cursor-dot, .profile-pic:hover ~ .cursor-dot { 
+            background-color: var(--accent-teal); 
+            width: 24px; height: 24px; 
+            mix-blend-mode: multiply;
         }
 
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
@@ -70,7 +63,7 @@
             transition: all 0.4s ease;
         }
         header.scrolled {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -105,7 +98,6 @@
             position: relative;
             display: inline-block;
             z-index: 1;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .section-title-wrapper { text-align: center; margin-bottom: 1rem; }
         
@@ -118,7 +110,7 @@
         }
         .section-title:hover::after { height: 70%; background-color: var(--accent-teal); }
 
-        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 4rem auto; color: var(--text-light); font-size: 1.1rem; font-weight: 600; }
+        .section-subtitle { text-align: center; max-width: 750px; margin: 0 auto 4rem auto; color: var(--text-light); font-size: 1.1rem; font-weight: 600; }
 
         #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         
@@ -149,16 +141,23 @@
         #hero h2 {
             font-size: clamp(1.2rem, 3vw, 2rem);
             font-weight: 800; color: var(--text-light);
-            margin-bottom: 2.5rem; text-transform: uppercase;
+            margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem; font-weight: 600; color: var(--text-dark);
+            max-width: 800px; margin-bottom: 3rem;
+            border-bottom: 3px solid var(--accent-teal); padding-bottom: 10px; display: inline-block;
         }
 
         .cta-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 
         .btn {
-            display: inline-block; padding: 1rem 3rem;
+            display: inline-block; padding: 1.2rem 3.5rem;
             text-transform: uppercase; font-weight: 900; font-size: 1.1rem;
             text-decoration: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 3px solid var(--border-color); border-radius: 8px;
+            letter-spacing: 1px;
         }
         .btn-primary {
             background-color: var(--accent-pink); color: #fff;
@@ -186,7 +185,29 @@
             100% { transform: translate(-50%, 15px); }
         }
 
+        /* ÚJ: PROFILKÉP KONTÉNER STÍLUSOK */
         .about-content { display: flex; align-items: center; gap: 4rem; }
+        
+        .profile-pic-container {
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+        .profile-pic {
+            width: 280px; 
+            height: 280px;
+            object-fit: cover;
+            border-radius: 24px; /* Kerekített sarkú négyzet */
+            border: 4px solid var(--border-color);
+            box-shadow: 12px 12px 0px var(--accent-teal);
+            background-color: var(--bg-card);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .profile-pic:hover {
+            transform: translate(-5px, -5px) rotate(-2deg);
+            box-shadow: 17px 17px 0px var(--accent-pink);
+        }
+
         .about-text { flex-grow: 1; }
         .about-text p { font-size: 1.1rem; font-weight: 500; }
         
@@ -217,7 +238,12 @@
             box-shadow: 4px 4px 0px var(--accent-teal);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .portfolio-feature-description { max-width: 700px; margin: 1.5rem auto 0 auto; color: var(--text-light); font-weight: 600;}
+        
+        .portfolio-feature-description { 
+            max-width: 800px; margin: 1.5rem auto 0 auto; 
+            color: var(--text-dark); font-weight: 600; font-size: 1.1rem;
+            background: rgba(0, 206, 203, 0.1); padding: 1rem 2rem; border-radius: 8px; border-left: 4px solid var(--accent-teal);
+        }
 
         .video-container {
             width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
@@ -232,7 +258,7 @@
         .portfolio-item { display: flex; flex-direction: column; }
         
         .video-container:hover {
-            transform: translate(-5px, -5px) rotate(1.5deg);
+            transform: translate(-5px, -5px) rotate(1deg);
             box-shadow: 15px 15px 0px var(--accent-pink);
         }
 
@@ -266,10 +292,11 @@
         
         footer { text-align: center; padding: 3rem 0; background-color: #EBECEF; margin-top: 4rem; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; color: var(--text-light); }
 
-        /* A GÖRGETÉS FIZIKAI EREJE (Scroll Force) EZEKEN AZ ELEMEKEN ÉRVÉNYESÜL */
+        /* GÖRGETÉSI "G-ERŐ" (A profilképhez is hozzáadva) */
         body.is-scrolling .video-container,
         body.is-scrolling .stat-item,
         body.is-scrolling .btn,
+        body.is-scrolling .profile-pic,
         body.is-scrolling .social-links a,
         body.is-scrolling .portfolio-feature-title {
             transform: scale(0.97) translateY(4px) !important;
@@ -289,11 +316,18 @@
             .interactive-name-container { font-size: 3.5rem; }
             .section-title { font-size: 2.2rem; }
             .about-content { flex-direction: column; text-align: center; }
+            .profile-pic { width: 220px; height: 220px; margin-bottom: 1rem; } /* Mobilos profilkép méret */
             .stats-grid { grid-template-columns: 1fr; }
             .portfolio-grid { grid-template-columns: 1fr; }
             .portfolio-feature-title { font-size: 1.5rem; }
             section { padding: 4rem 0; }
             .section-divider { margin: 4rem auto; }
+            .hero-description { font-size: 1rem; }
+        }
+        
+        @media (pointer: coarse) {
+            * { cursor: auto; }
+            .cursor-dot { display: none !important; }
         }
     </style>
 </head>
@@ -309,7 +343,7 @@
                 <a href="#" class="logo">Ábel<span>.</span></a>
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">Work</a></li>
+                    <li><a href="#portfolio">Case Studies</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -319,13 +353,12 @@
     <main>
         <section id="hero">
             <div class="container fade-in">
-                <!-- A név JS által lesz generálva ide -->
                 <div class="interactive-name-container" id="myName"></div>
-                <h2>Video Editor & Motion Designer</h2>
-                <p class="section-subtitle" style="margin-bottom: 2.5rem;">Transforming creative ideas into breathtaking visual stories.</p>
+                <h2>Premium Video Editor & Explainer Animator</h2>
+                <p class="hero-description fade-in">Helping Finance & Business YouTubers scale. I transform complex data into highly engaging, high-retention visual stories.</p>
                 <div class="cta-buttons">
-                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                    <a href="#portfolio" class="btn btn-primary">See Case Studies</a>
+                    <a href="#contact" class="btn btn-secondary">Book a Project</a>
                 </div>
             </div>
             <div class="scroll-down">
@@ -336,18 +369,22 @@
             </div>
         </section>
 
-        <!-- ABOUT ME SZEKCIÓ -->
         <section id="about" class="container fade-in">
+            <!-- ÚJ: PROFILKÉP HOZZÁADVA -->
             <div class="about-content">
+                <div class="profile-pic-container fade-in">
+                    <!-- FONTOS: IDE MÁSOLD BE AZ IMGBB LINKET A KÉPEDHEZ! -->
+                    <img src="https://ibb.co/Q7kb2Knk" alt="Ábel Kurnász" class="profile-pic">
+                </div>
                 <div class="about-text">
                     <div class="section-title-wrapper" style="text-align: left;">
-                        <h2 class="section-title">About Me</h2>
+                        <h2 class="section-title">The Value I Bring</h2>
                     </div>
-                    <p>Hi, I'm Ábel, an 18-year-old video editor and motion designer. I'm passionate about my craft, and my goal is to bring out the best in every project, creating visual experiences that capture the viewer's attention and effectively convey the message. Whether it's a commercial, social media content, or a complex animation, I approach each task with precision and creativity.</p>
+                    <p>Hi, I'm Ábel. In the Finance and Business YouTube space, viewer attention is everything. My goal isn't just to edit videos—it's to maximize your retention. I specialize in professional motion graphics, dynamic pacing, and data visualization that make complex topics easy and exciting to watch. I build trust with your audience through elite visual quality, directly impacting your channel's growth and conversion rates.</p>
                     <div class="stats-grid">
                         <div class="stat-item fade-in" style="--i: 1;">
                             <div class="stat-number" data-target="3" data-start="0" data-suffix="+">0+</div>
-                            <p>Years of Experience</p>
+                            <p>Years of Expertise</p>
                         </div>
                         <div class="stat-item fade-in" style="--i: 2;">
                             <div class="stat-number" data-target="1000" data-start="100" data-suffix="k" data-final-text="1M+">100k</div>
@@ -355,7 +392,7 @@
                         </div>
                         <div class="stat-item fade-in" style="--i: 3;">
                             <div class="stat-number" data-target="660" data-start="100" data-suffix="k+">100k+</div>
-                            <p>Subscriber Channel</p>
+                            <p>Top Client Sub Size</p>
                         </div>
                     </div>
                 </div>
@@ -366,98 +403,100 @@
 
         <section id="portfolio" class="container">
             <div class="section-title-wrapper fade-in">
-                <h2 class="section-title">Portfolio</h2>
+                <h2 class="section-title">Featured Case Studies</h2>
             </div>
-            <p class="section-subtitle fade-in" style="margin-bottom: 5rem;">A showcase of my previous work. Each video tells a unique story.</p>
+            <p class="section-subtitle fade-in" style="margin-bottom: 5rem;">Proven results through dynamic editing and explainer animations.</p>
             
             <div class="portfolio-main-feature fade-in">
-                <h3 class="portfolio-feature-title">Featured Fitness Edit</h3>
+                <h3 class="portfolio-feature-title">Premium Finance Explainer</h3>
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/iPFixUiFUvw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/SyTfStPyGpk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
+                <p class="portfolio-feature-description">Highly engaging motion graphics designed to simplify complex financial topics and maximize viewer retention.</p>
             </div>
 
             <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">Featured Tech Edit</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/av9cjuvXVoU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">Concert Visual Showcase</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/4GupYYLiYN4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                <p class="portfolio-feature-description">Visuals crafted for the concert of Hungary's most-streamed artist.</p>
-            </div>
-
-            <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">Showreel Video</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/sL-36PlRUeM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                <p class="portfolio-feature-description">A compilation of my best work, showcasing a variety of editing styles and techniques.</p>
-            </div>
-
-            <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">Long Form Gaming Video | 5x View Performance</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/9sr9Hdl7pUY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                <p class="portfolio-feature-description">One of the best-performing videos I've edited, keeping viewers engaged with dynamic cuts, effects, and sound design.</p>
-            </div>
-
-            <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">SaaS Ad</h3>
+                <h3 class="portfolio-feature-title">SaaS & Business Ad | High Conversion</h3>
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/WsDWGEPT5yI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                <p class="portfolio-feature-description">Dynamic editing and polished visuals crafted specifically to capture attention and boost your ad conversion rates.</p>
+                <p class="portfolio-feature-description">Dynamic editing and polished visuals crafted specifically to capture attention and boost B2B ad conversion rates.</p>
             </div>
 
             <div class="portfolio-feature-item fade-in">
-                <h3 class="portfolio-feature-title">Logo Animation</h3>
+                <h3 class="portfolio-feature-title">Long-Form Retention Edit | 5x View Perf.</h3>
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/Y1VL0MPVQNE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/9sr9Hdl7pUY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
+                <p class="portfolio-feature-description">Mastering pacing and retention. This edit achieved 5x the channel average—a framework I apply directly to finance content.</p>
+            </div>
+
+            <div class="portfolio-feature-item fade-in">
+                <h3 class="portfolio-feature-title">Motion Graphics Showreel</h3>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/sL-36PlRUeM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <p class="portfolio-feature-description">A compilation of my best work, showcasing a variety of high-end editing styles and animation techniques.</p>
+            </div>
+
+            <div class="portfolio-feature-item fade-in">
+                <h3 class="portfolio-feature-title">Large-Scale Production | Top Artist</h3>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/4GupYYLiYN4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <p class="portfolio-feature-description">Demonstrating reliability under pressure. Full visual package crafted for the concert of Hungary's most-streamed artist.</p>
             </div>
             
             <div class="section-title-wrapper fade-in" style="margin-top: 8rem; margin-bottom: 3rem;">
-                <h3 class="section-title" style="font-size: 2.2rem;">Other Motion Graphics</h3>
+                <h3 class="section-title" style="font-size: 2.2rem;">Versatility: Tech, Fitness & Lifestyle</h3>
             </div>
             <div class="portfolio-grid fade-in">
                 <div class="portfolio-item fade-in" style="--i: 1;">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/LIrDQIJu5K8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/Y1VL0MPVQNE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="portfolio-item fade-in" style="--i: 2;">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/yDGIFul9n-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/iPFixUiFUvw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="portfolio-item fade-in" style="--i: 3;">
                      <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/6LR5xVL-AC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/av9cjuvXVoU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="portfolio-item fade-in" style="--i: 4;">
                      <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/Saf0KKY8R2I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/LIrDQIJu5K8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="portfolio-item fade-in" style="--i: 5;">
                      <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/sg5MFvHu3HE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/yDGIFul9n-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="portfolio-item fade-in" style="--i: 6;">
                      <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/4zgvscLomjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/6LR5xVL-AC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="portfolio-item fade-in" style="--i: 7;">
+                     <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Saf0KKY8R2I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" style="--i: 8;">
+                     <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/sg5MFvHu3HE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" style="--i: 9;">
+                     <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/4zgvscLomjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" style="--i: 10;">
                      <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/aDa6KZR26Hc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
@@ -469,12 +508,11 @@
 
         <section id="contact" class="container">
             <div class="section-title-wrapper fade-in">
-                <h2 class="section-title">Let's Get In Touch!</h2>
+                <h2 class="section-title">Ready to Scale?</h2>
             </div>
-            <p class="section-subtitle fade-in">Have a project in mind? Let's work together. You can reach out to me on my socials.</p>
+            <p class="section-subtitle fade-in">Looking for an editor who understands retention and quality? Let's discuss your channel.</p>
             
             <div class="social-links fade-in">
-                <!-- ÚJ INSTAGRAM LINK ÉS HELYES IKON (A RENDES LOGÓ) -->
                 <a href="https://www.instagram.com/abelframes_/" target="_blank" title="Instagram">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 </a>
@@ -484,7 +522,7 @@
             </div>
             
             <p class="email-contact-text fade-in">
-                Alternatively, drop me an email at: <strong>kurnaszabel@gmail.com</strong>
+                Or send me a direct email at: <strong>kurnaszabel@gmail.com</strong>
             </p>
         </section>
     </main>
@@ -505,22 +543,20 @@
             });
         }
 
-        // Z-BETŰ TÖRÉSÉNEK JAVÍTÁSA ÉS SZIVÁRVÁNY EFEKTUS
         const nameContainer = document.getElementById('myName');
         const nameText = "Ábel Kurnász";
-        const words = nameText.split(' '); // Szavakra bontás
+        const words = nameText.split(' ');
         
         words.forEach((word, index) => {
             const wordDiv = document.createElement('div');
             wordDiv.style.display = 'inline-block';
-            wordDiv.style.whiteSpace = 'nowrap'; // Megakadályozza, hogy a szó eltörjön a közepén
+            wordDiv.style.whiteSpace = 'nowrap'; 
             
             word.split('').forEach(char => {
                 const span = document.createElement('span');
                 span.innerText = char;
                 span.classList.add('letter-span');
                 
-                // Hover (egér) logika
                 span.addEventListener('mouseenter', () => span.classList.add('rainbow-active'));
                 span.addEventListener('mouseleave', () => {
                     setTimeout(() => span.classList.remove('rainbow-active'), 2000);
@@ -531,7 +567,6 @@
             
             nameContainer.appendChild(wordDiv);
             
-            // Szóköz hozzáadása a szavak közé
             if(index < words.length - 1) {
                 const space = document.createElement('span');
                 space.innerHTML = '&nbsp;';
@@ -539,7 +574,6 @@
             }
         });
 
-        // GÖRGETÉSI SEBESSÉG (Scroll Force) LOGIKA ÉS SZIVÁRVÁNY
         let lastScrollY = window.scrollY;
         let scrollTimeout;
         
@@ -548,17 +582,14 @@
             let delta = Math.abs(currentScrollY - lastScrollY);
             lastScrollY = currentScrollY;
             
-            // 1. Fizikai "Benyomódás" effekt az egész oldalra
             document.body.classList.add('is-scrolling');
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 document.body.classList.remove('is-scrolling');
-            }, 150); // 150ms görgetés nélkül és visszapattan
+            }, 150); 
             
-            // 2. Sebesség-érzékeny szivárvány a néven
             if (delta > 5) { 
                 let spans = document.querySelectorAll('.letter-span');
-                // Minél gyorsabb a görgetés (delta), annál több betű kapja meg a hatást
                 let numLetters = Math.min(Math.floor(delta / 5) + 1, spans.length); 
                 
                 for(let i=0; i<numLetters; i++) {
@@ -566,7 +597,6 @@
                     let span = spans[randomIdx];
                     span.classList.add('rainbow-active');
                     
-                    // Késleltetett eltávolítás
                     setTimeout(() => {
                         span.classList.remove('rainbow-active');
                     }, 2000);
@@ -574,7 +604,6 @@
             }
         });
 
-        // Villogó, megnövő konfetti hover effekttel
         particlesJS("particles-js", {
             "particles": { 
                 "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, 
