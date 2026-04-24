@@ -586,3 +586,78 @@
                         span.classList.remove('rainbow-active');
                     }, 2000);
                 }
+            }
+        });
+
+        particlesJS("particles-js", {
+            "particles": { 
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, 
+                "color": { "value": ["#FF5E5B", "#00CECB", "#FFED66"] }, 
+                "shape": { "type": "circle" }, 
+                "opacity": { "value": 0.5, "random": true, "anim": { "enable": false } }, 
+                "size": { "value": 5, "random": true, "anim": { "enable": false } }, 
+                "line_linked": { "enable": false }, 
+                "move": { "enable": true, "speed": 2, "direction": "bottom", "random": true, "straight": false, "out_mode": "out", "bounce": false } 
+            },
+            "interactivity": { 
+                "detect_on": "window", 
+                "events": { "onhover": { "enable": true, "mode": ["repulse", "bubble"] }, "onclick": { "enable": false }, "resize": true }, 
+                "modes": { 
+                    "repulse": { "distance": 100, "duration": 0.4 },
+                    "bubble": { "distance": 150, "size": 12, "duration": 0.3, "opacity": 1 }
+                } 
+            }, 
+            "retina_detect": true
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            const statsSection = document.querySelector('.stats-grid');
+            let hasAnimated = false;
+            const counterObserver = new IntersectionObserver((entries) => {
+                const [entry] = entries;
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    const counters = document.querySelectorAll('.stat-number');
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        const startValue = +counter.getAttribute('data-start') || 0;
+                        const duration = 2000;
+                        let start = null;
+                        
+                        const step = timestamp => {
+                            if (!start) start = timestamp;
+                            const progress = Math.min((timestamp - start) / duration, 1);
+                            const currentValue = Math.round(startValue + progress * (target - startValue));
+                            counter.innerText = currentValue + suffix;
+                            if (progress < 1) {
+                                window.requestAnimationFrame(step);
+                            } else {
+                                const finalText = counter.getAttribute('data-final-text');
+                                counter.innerText = finalText ? finalText : target + suffix;
+                            }
+                        };
+                        window.requestAnimationFrame(step);
+                    });
+                    counterObserver.unobserve(statsSection);
+                }
+            }, { threshold: 0.5 });
+            if (statsSection) counterObserver.observe(statsSection);
+
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+        });
+    </script>
+</body>
+</html>
